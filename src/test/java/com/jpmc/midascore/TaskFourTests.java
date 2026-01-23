@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 
+import com.jpmc.midascore.entity.UserRecord;
+import com.jpmc.midascore.repository.UserRepository;
+
 @SpringBootTest
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
@@ -22,6 +25,9 @@ public class TaskFourTests {
 
     @Autowired
     private FileLoader fileLoader;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void task_four_verifier() throws InterruptedException {
@@ -41,6 +47,10 @@ public class TaskFourTests {
         while (true) {
             Thread.sleep(20000);
             logger.info("...");
+            logger.info("==== CURRENT USER BALANCES ====");
+    for (UserRecord user : userRepository.findAll()) {
+        logger.info(user.getName() + " -> " + user.getBalance());
+    }
         }
     }
 }

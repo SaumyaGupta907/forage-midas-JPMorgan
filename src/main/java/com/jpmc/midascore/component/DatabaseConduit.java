@@ -16,4 +16,8 @@ public class DatabaseConduit {
         userRepository.save(userRecord);
     }
 
+    public Iterable<UserRecord> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }

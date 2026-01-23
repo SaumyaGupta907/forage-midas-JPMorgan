@@ -12,6 +12,7 @@ public class TransactionRecord {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  private float incentive;
 
   @ManyToOne
   @JoinColumn(name = "sender_id")
@@ -29,6 +30,14 @@ public class TransactionRecord {
     this.sender = sender;
     this.recipient = recipient;
     this.amount = amount;
+  }
+
+  public float getIncentive() {
+    return incentive;
+  }
+
+  public void setIncentive(float incentive) {
+      this.incentive = incentive;
   }
 
   public UserRecord getSender(){ return sender; }
